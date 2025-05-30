@@ -1,0 +1,659 @@
+/* Enhanced Pizza Delivery System Styles */
+
+:root {
+  --primary-color: #ff5722;
+  --primary-hover: #e64a19;
+  --secondary-color: #ff9800;
+  --success-color: #4caf50;
+  --success-hover: #388e3c;
+  --danger-color: #f44336;
+  --danger-hover: #d32f2f;
+  --dark-color: #212121;
+  --light-color: #f5f5f5;
+  --gray-color: #9e9e9e;
+}
+
+/* Base Styles */
+body {
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
+  padding-top: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: #f9f9f9;
+}
+
+/* Navbar Styling */
+.navbar {
+  background-color: var(--dark-color) !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  padding: 0.7rem 1rem;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.navbar-brand i {
+  color: var(--primary-color);
+}
+
+/* Improve navbar hover states */
+.nav-link {
+  font-weight: 600;
+  padding: 0.5rem 1rem !important;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #ff8a65 !important; /* Light orange for contrast on dark bg */
+  background-color: rgba(255, 255, 255, 0.1); /* Subtle highlight */
+}
+
+/* Dropdown menu items */
+.dropdown-item:hover {
+  background-color: #fff3e0; /* Very light orange */
+  color: var(--primary-hover) !important;
+}
+
+/* Push the footer to the bottom */
+footer {
+  margin-top: auto;
+  background-color: var(--dark-color) !important;
+  padding: 2rem 0;
+}
+
+/* Container padding */
+.container {
+  padding: 1.5rem 15px;
+}
+
+/* Cards with hover effects */
+.card {
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Darker shadow */
+  border: 1px solid #ffccbc; /* Light orange border */
+}
+
+.card-header {
+  background-color: #fff;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 1rem 1.5rem;
+  font-weight: 700;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+/* Pizza cards styling */
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+/* Pizza menu cards */
+.pizza-card {
+  height: 100%;
+}
+
+.pizza-card .card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.pizza-card .badge {
+  padding: 0.5rem 0.7rem;
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.pizza-card .card-footer {
+  background-color: white;
+  border-top: 1px solid #f0f0f0;
+  padding: 1rem 1.5rem;
+}
+
+/* Add specific hover effect for menu cards */
+.pizza-card:hover .card-body, 
+.card:hover .card-body {
+  background-color: #fff8e1; /* Very light yellow for contrast */
+}
+
+/* Button hover enhancements */
+.btn {
+  border-radius: 4px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Primary buttons - orange */
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Success buttons - green */
+.btn-success {
+  background-color: var(--success-color);
+  border-color: var(--success-color);
+  color: white;
+}
+
+.btn-success:hover {
+  background-color: var(--success-hover);
+  border-color: var(--success-hover);
+  color: white !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Danger buttons - red */
+.btn-danger {
+  background-color: var(--danger-color);
+  border-color: var(--danger-color);
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: var(--danger-hover);
+  border-color: var(--danger-hover);
+  color: white !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Secondary buttons */
+.btn-secondary {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #f57c00; /* Darker orange-yellow */
+  border-color: #ef6c00;
+  color: white !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Dark buttons */
+.btn-dark {
+  background-color: var(--dark-color);
+  border-color: var(--dark-color);
+}
+
+.btn-dark:hover {
+  background-color: #000000;
+  border-color: #000000;
+  color: white !important;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* List group hover effects */
+.list-group-item-action:hover {
+  background-color: #fff3e0; /* Light orange background */
+  color: var(--primary-hover);
+  border-left: 3px solid var(--primary-color);
+}
+
+.list-group-item-action.active {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+/* Status badges */
+.badge-placed, .badge-info {
+  background-color: #2196f3;
+}
+
+.badge-preparing, .badge-primary {
+  background-color: #651fff;
+}
+
+.badge-ready, .badge-warning {
+  background-color: #ff9800;
+}
+
+.badge-out-for-delivery, .badge-dark {
+  background-color: #424242;
+}
+
+.badge-delivered, .badge-success {
+  background-color: var(--success-color);
+}
+
+.badge-cancelled, .badge-danger {
+  background-color: var(--danger-color);
+}
+
+/* Form styling */
+.form-control {
+  border-radius: 4px;
+  padding: 0.6rem 1rem;
+  border: 1px solid #e0e0e0;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(255,87,34,0.25);
+}
+
+.form-control:hover {
+  border-color: #ff8a65;
+}
+
+/* Tables */
+.table {
+  background-color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  background-color: #f5f5f5;
+  border-top: none;
+  font-weight: 700;
+}
+
+.table tbody tr:hover {
+  background-color: #fff8e1; /* Light yellow for visibility */
+}
+
+/* Links with better hover contrast */
+a:hover {
+  text-decoration: underline;
+  color: var(--primary-hover) !important;
+}
+
+/* Badge hover effect for clickable badges */
+a.badge:hover {
+  opacity: 0.9;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* For Indian theme - spice level indicators */
+.spice-level-indicator {
+  display: inline-block;
+  color: #e74c3c;
+}
+
+.spice-level-1 .fa-pepper-hot { opacity: 1; }
+.spice-level-1 .fa-pepper-hot ~ .fa-pepper-hot { opacity: 0.3; }
+
+.spice-level-2 .fa-pepper-hot:nth-child(-n+2) { opacity: 1; }
+.spice-level-2 .fa-pepper-hot:nth-child(n+3) { opacity: 0.3; }
+
+.spice-level-3 .fa-pepper-hot:nth-child(-n+3) { opacity: 1; }
+.spice-level-3 .fa-pepper-hot:nth-child(n+4) { opacity: 0.3; }
+
+.spice-level-4 .fa-pepper-hot { opacity: 1; }
+
+/* Tandoori-themed button */
+.btn-tandoori {
+  background-color: #d63031;
+  border-color: #b71540;
+  color: white;
+}
+
+.btn-tandoori:hover {
+  background-color: #b71540;
+  border-color: #900c3f;
+  color: white !important;
+}
+
+/* Enhanced Home Page Styles */
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 600px;
+    background: url('${pageContext.request.contextPath}/images/pizza-banner.jpg') no-repeat center center;
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    color: white;
+    overflow: hidden;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(210, 53, 0, 0.8) 0%, rgba(139, 0, 0, 0.8) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    padding: 0 20px;
+    margin-left: 10%;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    line-height: 1.2;
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.btn-hero {
+    background-color: #fff;
+    color: #d63031;
+    border: none;
+    font-weight: 700;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-hero:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    background-color: #f8f9fa;
+    color: #b71540 !important;
+}
+
+/* Features Section */
+.features-section {
+    background-color: #fff;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNmNWY1ZjUiPjwvcmVjdD4KPC9zdmc+');
+    padding: 80px 0;
+}
+
+.feature-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    padding: 30px;
+    text-align: center;
+    transition: all 0.3s ease;
+    height: 100%;
+    border-bottom: 4px solid transparent;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    border-bottom: 4px solid var(--primary-color);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.feature-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #ff5722, #ff9800);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+}
+
+.feature-icon i {
+    font-size: 2rem;
+    color: white;
+}
+
+.feature-card h3 {
+    color: #333;
+    font-weight: 700;
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.feature-card p {
+    color: #666;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Popular Pizzas Section */
+.popular-section {
+    background-color: #fafafa;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNiIgaGVpZ2h0PSI2Ij4KPHJlY3Qgd2lkdGg9IjYiIGhlaWdodD0iNiIgZmlsbD0iI2ZhZmFmYSI+PC9yZWN0Pgo8ZyBpZD0iYyI+CjxyZWN0IHdpZHRoPSIzIiBoZWlnaHQ9IjMiIGZpbGw9IiNmNWY1ZjUiPjwvcmVjdD4KPHJlY3QgeT0iMSIgd2lkdGg9IjMiIGhlaWdodD0iMiIgZmlsbD0iI2ZhZmFmYSI+PC9yZWN0Pgo8L2c+Cjx1c2UgeGxpbms6aHJlZj0iI2MiIHg9IjMiIHk9IjMiPjwvdXNlPgo8L3N2Zz4=');
+    padding: 80px 0;
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.section-title h2 {
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    position: relative;
+    display: inline-block;
+}
+
+.spice-divider {
+    position: relative;
+    height: 20px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.spice-divider::before,
+.spice-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    height: 2px;
+    width: 70px;
+    background: linear-gradient(90deg, transparent, #ff5722);
+}
+
+.spice-divider::before {
+    right: 50%;
+    margin-right: 20px;
+}
+
+.spice-divider::after {
+    left: 50%;
+    margin-left: 20px;
+    background: linear-gradient(90deg, #ff5722, transparent);
+}
+
+.spice-divider i {
+    color: #ff5722;
+    font-size: 1.2rem;
+}
+
+.pizza-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+    transition: all 0.3s ease;
+}
+
+.pizza-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.pizza-img {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.pizza-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.pizza-card:hover .pizza-img img {
+    transform: scale(1.05);
+}
+
+.veg-badge, .nonveg-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.veg-badge {
+    border-color: #4caf50;
+}
+
+.veg-badge i {
+    color: #4caf50;
+    font-size: 10px;
+}
+
+.nonveg-badge {
+    border-color: #f44336;
+}
+
+.nonveg-badge i {
+    color: #f44336;
+    font-size: 10px;
+}
+
+.pizza-content {
+    padding: 20px;
+}
+
+.pizza-content h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.spice-level {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.spice-level span {
+    margin-right: 10px;
+    color: #666;
+}
+
+.spice-level i {
+    color: #f44336;
+    margin-right: 2px;
+}
+
+.pizza-price {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: #ff5722;
+    margin-bottom: 15px;
+}
+
+/* CTA Section */
+.cta-section {
+    background: linear-gradient(135deg, #ff5722, #ff9800);
+    color: white;
+    padding: 60px 0;
+    margin-top: 40px;
+}
+
+.cta-section h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin-bottom: 0;
+}
+
+/* Animation for button */
+.pulse-animation {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .hero-section {
+        height: 500px;
+    }
+    
+    .hero-content {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .cta-section [class*="col-"] {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+}

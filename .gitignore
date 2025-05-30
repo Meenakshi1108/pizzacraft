@@ -1,0 +1,72 @@
+# Compiled class files
+*.class
+
+# Build directories
+build/
+dist/
+target/
+out/
+database/
+# Application server directories
+.server/
+server/
+WebContent/WEB-INF/classes/
+
+# IDE specific files
+.idea/
+*.iml
+*.iws
+*.ipr
+.vscode/
+*.swp
+*.swo
+.classpath
+.project
+.settings/
+.metadata/
+nb-configuration.xml
+
+# Log files
+*.log
+logs/
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Database files
+*.db
+*.sqlite
+*.mdb
+*.accdb
+
+# Configuration files that may contain sensitive information
+src/main/resources/application.properties
+src/main/resources/application.yml
+src/main/resources/application-*.properties
+src/main/resources/application-*.yml
+*.properties
+!example.properties
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Maven specific
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Node/NPM (if using any frontend frameworks)
+node_modules/
+npm-debug.log
+yarn-error.log
