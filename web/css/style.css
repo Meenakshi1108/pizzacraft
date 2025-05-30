@@ -326,7 +326,7 @@ a.badge:hover {
 .hero-section {
     position: relative;
     height: 600px;
-    background: url('${pageContext.request.contextPath}/images/pizza-banner.jpg') no-repeat center center;
+    background: url('/PizzaDeliverySystem/images/panner.jpg') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
     display: flex;
@@ -392,14 +392,14 @@ a.badge:hover {
 .features-section {
     background-color: #fff;
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1IiBoZWlnaHQ9IjUiPgo8cmVjdCB3aWR0aD0iNSIgaGVpZ2h0PSI1IiBmaWxsPSIjZmZmIj48L3JlY3Q+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiNmNWY1ZjUiPjwvcmVjdD4KPC9zdmc+');
-    padding: 80px 0;
+    padding: 50px 0;
 }
 
 .feature-card {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    padding: 30px;
+    padding: 20px;
     text-align: center;
     transition: all 0.3s ease;
     height: 100%;
@@ -445,12 +445,13 @@ a.badge:hover {
 .popular-section {
     background-color: #fafafa;
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNiIgaGVpZ2h0PSI2Ij4KPHJlY3Qgd2lkdGg9IjYiIGhlaWdodD0iNiIgZmlsbD0iI2ZhZmFmYSI+PC9yZWN0Pgo8ZyBpZD0iYyI+CjxyZWN0IHdpZHRoPSIzIiBoZWlnaHQ9IjMiIGZpbGw9IiNmNWY1ZjUiPjwvcmVjdD4KPHJlY3QgeT0iMSIgd2lkdGg9IjMiIGhlaWdodD0iMiIgZmlsbD0iI2ZhZmFmYSI+PC9yZWN0Pgo8L2c+Cjx1c2UgeGxpbms6aHJlZj0iI2MiIHg9IjMiIHk9IjMiPjwvdXNlPgo8L3N2Zz4=');
-    padding: 80px 0;
+    padding: 40px 0;
+    margin-top: 0;
 }
 
 .section-title {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .section-title h2 {
@@ -500,7 +501,7 @@ a.badge:hover {
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     transition: all 0.3s ease;
 }
 
@@ -597,8 +598,8 @@ a.badge:hover {
 .cta-section {
     background: linear-gradient(135deg, #ff5722, #ff9800);
     color: white;
-    padding: 60px 0;
-    margin-top: 40px;
+    padding: 40px 0;
+    margin-top: 0;
 }
 
 .cta-section h3 {
@@ -656,4 +657,15 @@ a.badge:hover {
         text-align: center;
         margin-bottom: 20px;
     }
+}
+
+@media (max-width: 768px) {
+  .features-section,
+  .popular-section {
+    padding: 30px 0; /* Even less padding on mobile */
+  }
+  
+  .cta-section {
+    padding: 30px 0;
+  }
 }

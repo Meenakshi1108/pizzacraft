@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
+<!-- Correct path with absolute reference -->
 <jsp:include page="/WEB-INF/views/common/header.jsp">
+    <jsp:param name="title" value="Welcome to PizzaCraft" />
 </jsp:include>
 
 <!-- Hero Section with Better Design -->
@@ -15,7 +20,7 @@
 </div>
 
 <!-- Feature Cards with Textured Background -->
-<div class="features-section">
+<div class="features-section py-4">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -50,7 +55,7 @@
 </div>
 
 <!-- Popular Pizzas Section -->
-<div class="popular-section">
+<div class="popular-section py-4">
     <div class="container">
         <div class="section-title">
             <h2>Our Chef's Specials</h2>
@@ -62,7 +67,7 @@
             <div class="col-md-4">
                 <div class="pizza-card">
                     <div class="pizza-img">
-                        <img src="${pageContext.request.contextPath}/images/pizza-placeholder.jpg" alt="Tandoori Paneer">
+                        <img src="${pageContext.request.contextPath}/images/tandooripanner.jpg" alt="Tandoori Paneer">
                         <div class="veg-badge"><i class="fas fa-circle"></i></div>
                     </div>
                     <div class="pizza-content">
@@ -74,32 +79,32 @@
                             <i class="fas fa-pepper-hot"></i>
                         </div>
                         <div class="pizza-price">&#8377;329</div>
-                        <a href="${pageContext.request.contextPath}/menu" class="btn btn-outline-primary">Order Now</a>
+                        <a href="${pageContext.request.contextPath}/pizza/13" class="btn btn-outline-primary">Order Now</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="pizza-card">
                     <div class="pizza-img">
-                        <img src="${pageContext.request.contextPath}/images/pizza-placeholder.jpg" alt="Butter Chicken">
+                        <img src="${pageContext.request.contextPath}/images/chicken.jpg" alt="Chicken Supreme">
                         <div class="nonveg-badge"><i class="fas fa-circle"></i></div>
                     </div>
                     <div class="pizza-content">
-                        <h3>Butter Chicken Pizza</h3>
+                        <h3>Chicken Supreme</h3>
                         <div class="spice-level">
                             <span>Spice Level:</span>
                             <i class="fas fa-pepper-hot"></i>
                             <i class="fas fa-pepper-hot"></i>
                         </div>
-                        <div class="pizza-price">&#8377;369</div>
-                        <a href="${pageContext.request.contextPath}/menu" class="btn btn-outline-primary">Order Now</a>
+                        <div class="pizza-price">&#8377;349</div>
+                        <a href="${pageContext.request.contextPath}/pizza/10" class="btn btn-outline-primary">Order Now</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="pizza-card">
                     <div class="pizza-img">
-                        <img src="${pageContext.request.contextPath}/images/pizza-placeholder.jpg" alt="Cheese Burst">
+                        <img src="${pageContext.request.contextPath}/images/cheeseburst.jpeg" alt="Cheese Burst">
                         <div class="veg-badge"><i class="fas fa-circle"></i></div>
                     </div>
                     <div class="pizza-content">
@@ -109,7 +114,7 @@
                             <i class="fas fa-pepper-hot"></i>
                         </div>
                         <div class="pizza-price">&#8377;349</div>
-                        <a href="${pageContext.request.contextPath}/menu" class="btn btn-outline-primary">Order Now</a>
+                        <a href="${pageContext.request.contextPath}/pizza/19" class="btn btn-outline-primary">Order Now</a>
                     </div>
                 </div>
             </div>
@@ -118,7 +123,7 @@
 </div>
 
 <!-- Call to Action Section -->
-<div class="cta-section">
+<div class="cta-section py-3">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-8">

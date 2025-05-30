@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <h5>PizzaCraft</h5>
-                    <p>Fresh, handcrafted pizzas delivered to your door.</p>
+                    <p>Fresh, handcrafted pizzas<br>delivered to your door.</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Quick Links</h5>

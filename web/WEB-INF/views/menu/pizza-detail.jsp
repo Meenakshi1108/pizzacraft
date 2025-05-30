@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <jsp:include page="../common/header.jsp">
     <jsp:param name="title" value="${pizza.name}" />
@@ -10,10 +11,10 @@
     <div class="col-md-5">
         <c:choose>
             <c:when test="${not empty pizza.imageUrl}">
-                <img src="${pizza.imageUrl}" class="img-fluid rounded" alt="${pizza.name}">
+                <img src="${pageContext.request.contextPath}/${pizza.imageUrl}" class="img-fluid rounded" alt="${pizza.name}">
             </c:when>
             <c:otherwise>
-                <img src="${pageContext.request.contextPath}/images/pizza-placeholder.jpg" 
+                <img src="${pageContext.request.contextPath}/pizza-placeholder.jpg" 
                      class="img-fluid rounded" alt="${pizza.name}">
             </c:otherwise>
         </c:choose>
