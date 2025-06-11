@@ -21,6 +21,9 @@ public class Order {
     private User assignedUser;  // Delivery person
     private Timestamp assignedAt;
     private Timestamp deliveredAt;
+    private Integer deliveryPersonId; // New field for delivery person ID
+    private String deliveryPersonName; // Name of the delivery person
+    
     // Default constructor
     public Order() {
         this.orderItems = new ArrayList<>();
@@ -122,22 +125,36 @@ public class Order {
 
     public void setAssignedUser(User assignedUser) {
         this.assignedUser = assignedUser;
-    }
-
-    public Timestamp getAssignedAt() {
+    }    public Timestamp getAssignedAt() {
         return assignedAt;
     }
 
     public void setAssignedAt(Timestamp assignedAt) {
         this.assignedAt = assignedAt;
     }
-
+    
     public Timestamp getDeliveredAt() {
         return deliveredAt;
     }
 
     public void setDeliveredAt(Timestamp deliveredAt) {
         this.deliveredAt = deliveredAt;
+    }
+    
+    public Integer getDeliveryPersonId() {
+        return deliveryPersonId;
+    }
+
+    public void setDeliveryPersonId(Integer deliveryPersonId) {
+        this.deliveryPersonId = deliveryPersonId;
+    }
+
+    public String getDeliveryPersonName() {
+        return deliveryPersonName;
+    }
+
+    public void setDeliveryPersonName(String deliveryPersonName) {
+        this.deliveryPersonName = deliveryPersonName;
     }
 
     // Add these convenience methods

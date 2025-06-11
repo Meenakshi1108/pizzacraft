@@ -65,6 +65,11 @@ public class OrderConfirmationServlet extends BaseServlet {
             getServletContext().log("Error getting order for confirmation", e);
             setFlashMessage(req, "error", "An error occurred. Please check your orders for status.");
             resp.sendRedirect(req.getContextPath() + "/orders");
+        } catch (Exception e) {
+            req.setAttribute("error", "Failed to load order details");
+            req.setAttribute("errorDetail", e.getMessage());
+            req.getRequestDispatcher("/WEB-INF/views/error/error.jsp").forward(req, resp);
+            return;
         }
     }
 }

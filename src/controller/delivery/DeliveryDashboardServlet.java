@@ -32,8 +32,7 @@ public class DeliveryDashboardServlet extends BaseServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
-            throws ServletException, IOException {
-        // Check if logged in and has DELIVERY_PERSON role
+            throws ServletException, IOException {        // Check if logged in and has DELIVERY role
         if (!requireLogin(req, resp) || !requireRole(req, resp, User.ROLE_DELIVERY)) {
             return;
         }

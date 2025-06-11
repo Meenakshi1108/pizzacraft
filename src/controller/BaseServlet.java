@@ -59,15 +59,15 @@ public abstract class BaseServlet extends HttpServlet {
      * @return true if the user is logged in, false if redirection occurred
      * @throws IOException If an I/O error occurs
      */
-    protected boolean requireLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        if (!isLoggedIn(req)) {
-            // Store the requested URL for redirect after login
-            String requestedUrl = req.getRequestURI();
-            if (req.getQueryString() != null) {
-                requestedUrl += "?" + req.getQueryString();
+    protected boolean requireLogin(HttpServletRequest req, HttpServletResponse resp) 
+            throws IOException {
+        if (req.getSession().getAttribute("user") == null) {
+            // Store original URL, but don't create infinite loops
+            String originalUrl = req.getRequestURI();
+            // Don't store login page as the redirect URL
+            if (!originalUrl.contains("/login")) {
+                req.getSession().setAttribute("redirectUrl", originalUrl);
             }
-            req.getSession().setAttribute("redirectUrl", requestedUrl);
-            
             resp.sendRedirect(req.getContextPath() + "/login");
             return false;
         }
@@ -82,13 +82,32 @@ public abstract class BaseServlet extends HttpServlet {
      * @param role The required role
      * @return true if the user has the role, false if redirection occurred
      * @throws IOException If an I/O error occurs
-     */
-    protected boolean requireRole(HttpServletRequest req, HttpServletResponse resp, String role) throws IOException {
-        if (!hasRole(req, role)) {
+     */    protected boolean requireRole(HttpServletRequest req, HttpServletResponse resp, String role) throws IOException {
+        User user = getLoggedInUser(req);
+        if (user == null) {
+            System.err.println("DEBUG: No logged in user when requiring role: " + role);
+            setFlashMessage(req, "error", "You must be logged in to access this page.");
+            resp.sendRedirect(req.getContextPath() + "/login");
+            return false;
+        }
+        
+        String userRole = user.getRole();
+        System.out.println("DEBUG: Checking role: User has " + userRole + ", required " + role);
+        
+        // Handle multiple possible valid roles - e.g., both DELIVERY and DELIVERY_PERSON
+        if (role.equals(User.ROLE_ADMIN) && userRole.equals(User.ROLE_ADMIN)) {
+            return true;
+        } else if (role.equals(User.ROLE_DELIVERY) && 
+                  (userRole.equals(User.ROLE_DELIVERY) || userRole.equals(User.ROLE_DELIVERY_PERSON))) {
+            return true;
+        } else if (role.equals(User.ROLE_CUSTOMER) && userRole.equals(User.ROLE_CUSTOMER)) {
+            return true;
+        } else {
+            // Store a message explaining why access was denied
+            setFlashMessage(req, "error", "You do not have permission to access this page. Required role: " + role + ", your role: " + userRole);
             resp.sendRedirect(req.getContextPath() + "/access-denied");
             return false;
         }
-        return true;
     }
     
     /**

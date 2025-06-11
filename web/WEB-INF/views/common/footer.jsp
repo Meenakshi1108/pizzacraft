@@ -1,38 +1,66 @@
 </div><!-- Closing the container div opened in header.jsp -->
     
-    <footer class="bg-dark text-white py-4 mt-5">
+    </div><!-- Closing the content-wrapper div -->
+    
+    <footer class="footer mt-auto py-3 bg-dark text-white">
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3 mb-md-0">
                     <h5>PizzaCraft</h5>
-                    <p>Fresh, handcrafted pizzas<br>delivered to your door.</p>
+                    <p class="text-muted">Delicious pizzas, delivered fast.</p>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 mb-3 mb-md-0">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
                         <li><a href="${pageContext.request.contextPath}/" class="text-white">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/menu" class="text-white">Menu</a></li>
-                        <li><a href="${pageContext.request.contextPath}/cart" class="text-white">Cart</a></li>
+                        <li><a href="${pageContext.request.contextPath}/profile" class="text-white">My Account</a></li>
                     </ul>
                 </div>
                 <div class="col-md-4">
                     <h5>Contact</h5>
-                    <address>
-                        <i class="fas fa-map-marker-alt"></i> Pizza Street, Coimbatore<br>
-                        <i class="fas fa-phone"></i> (123) 456-7890<br>
-                        <i class="fas fa-envelope"></i> info@pizzacraft.com
+                    <address class="text-muted">
+                        <i class="fas fa-map-marker-alt me-2"></i> 123 Pizza Street<br>
+                        <i class="fas fa-phone me-2"></i> (123) 456-7890<br>
+                        <i class="fas fa-envelope me-2"></i> contact@pizzacraft.com
                     </address>
                 </div>
             </div>
-            <div class="text-center mt-3">
-                <p>&copy; 2023 PizzaCraft. All rights reserved.</p>
+            <div class="row mt-3">
+                <div class="col-12 text-center">
+                    <hr class="bg-secondary">
+                    <p class="mb-0">&copy; 2025 PizzaCraft. All rights reserved.</p>
+                </div>
             </div>
         </div>
     </footer>
-    
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Add this to make the footer stay at the bottom -->
+    <style>
+        html, body {
+            height: 100%;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .container:not(.footer .container) {
+            flex: 1 0 auto;
+        }
+        
+        .footer {
+            flex-shrink: 0;
+        }
+    </style>    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <!-- Custom JS -->
     <script src="${pageContext.request.contextPath}/js/script.js"></script>
+    
+    <!-- Performance Optimizations JS -->
+    <script src="${pageContext.request.contextPath}/js/performance-optimizations.js" defer></script>
 </body>
 </html>

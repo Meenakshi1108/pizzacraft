@@ -1,0 +1,78 @@
+/* Hero Section Styles for PizzaCraft */
+
+/* Hero Section */
+.hero-section {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/margarita-pizza.jpg'); /* Updated to match your working image */
+    background-size: cover;
+    background-position: center;
+    height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(210, 53, 0, 0.8) 0%, rgba(139, 0, 0, 0.8) 100%);
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2; /* Increased to be above overlay */
+    padding: 2rem;
+    max-width: 800px;
+    text-align: center; /* Ensure centered text */
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+    line-height: 1.2;
+    color: white; /* Explicitly set color */
+}
+
+.hero-subtitle {
+    font-size: 1.4rem;
+    margin-bottom: 30px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.pulse-animation {
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        height: 500px;
+    }
+    .hero-title {
+        font-size: 2.5rem !important;
+    }
+    .hero-subtitle {
+        font-size: 1.1rem !important;
+    }
+}

@@ -35,21 +35,19 @@
                         <tr>
                             <td>${order.id}</td>
                             <td><fmt:formatDate value="${order.createdAt}" pattern="yyyy-MM-dd HH:mm" /></td>
-                            <td>
-                                <span class="badge 
-                                    ${order.orderStatus eq 'PLACED' ? 'badge-info' : 
-                                     order.orderStatus eq 'PREPARING' ? 'badge-primary' :
-                                     order.orderStatus eq 'READY' ? 'badge-warning' :
-                                     order.orderStatus eq 'OUT_FOR_DELIVERY' ? 'badge-dark' :
-                                     order.orderStatus eq 'DELIVERED' ? 'badge-success' :
-                                     'badge-danger'}">
+                            <td>                                <span class="badge 
+                                    ${order.orderStatus eq 'PLACED' ? 'bg-info' : 
+                                     order.orderStatus eq 'PREPARING' ? 'bg-primary' :
+                                     order.orderStatus eq 'READY' ? 'bg-warning' :
+                                     order.orderStatus eq 'OUT_FOR_DELIVERY' ? 'bg-secondary' :
+                                     order.orderStatus eq 'DELIVERED' ? 'bg-success' :
+                                     'bg-danger'}">
                                     ${order.orderStatus}
                                 </span>
                             </td>
                             <td>${order.orderItems.size()}</td>
-                            <td>₹<fmt:formatNumber value="${order.totalAmount}" type="number" minFractionDigits="2" maxFractionDigits="2" /></td>
-                            <td>
-                                <a href="${pageContext.request.contextPath}/orders/${order.id}" class="btn btn-sm btn-outline-primary">
+                            <td>₹<fmt:formatNumber value="${order.totalAmount}" type="number" minFractionDigits="2" maxFractionDigits="2" /></td>                            <td>
+                                <a href="${pageContext.request.contextPath}/view-order/${order.id}" class="btn btn-sm btn-outline-primary">
                                     <i class="fas fa-eye"></i> Details
                                 </a>
                             </td>

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,51 +48,102 @@ public class RegisterServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
-        // Get form parameters
+        // Get form data
         String username = req.getParameter("username");
+        String email = req.getParameter("email");
         String password = req.getParameter("password");
         String confirmPassword = req.getParameter("confirmPassword");
-        String fullName = req.getParameter("fullName");
-        String email = req.getParameter("email");
-        String phone = req.getParameter("phone");
+        String contactNumber = req.getParameter("contactNumber");
         
-        // Validate passwords match
-        if (!password.equals(confirmPassword)) {
-            req.setAttribute("error", "Passwords do not match");
-            storeFormData(req);
+        // Store form data for redisplay
+        storeFormData(req);
+        
+        // Validate form data
+        if (username == null || username.trim().isEmpty()) {
+            req.setAttribute("error", "Username is required");
             req.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(req, resp);
             return;
         }
         
-        // Create and populate User object
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password); // This will be hashed in the model
-        user.setFullName(fullName);
-        user.setEmail(email);
-        user.setPhone(phone);
+        if (email == null || email.trim().isEmpty()) {
+            req.setAttribute("error", "Email is required");
+            req.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(req, resp);
+            return;
+        }
+        
+        if (password == null || password.trim().isEmpty()) {
+            req.setAttribute("error", "Password is required");
+            req.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(req, resp);
+            return;
+        }
+        
+        // NEW VALIDATION: Check password length
+        if (password.length() < 8) {
+            req.setAttribute("error", "Password must be at least 8 characters long");
+            req.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(req, resp);
+            return;
+        }
+        
+        if (!password.equals(confirmPassword)) {
+            req.setAttribute("error", "Passwords do not match");
+            req.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(req, resp);
+            return;
+        }
+        
+        if (contactNumber == null || contactNumber.trim().isEmpty()) {
+            req.setAttribute("error", "Contact number is required");
+            req.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(req, resp);
+            return;
+        }
         
         try {
+            // Create user object
+            User user = new User();
+            user.setUsername(username);
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setContactNumber(contactNumber);
+            user.setRole("CUSTOMER");
+            
             // Register the user
-            user = userService.registerUser(user);
+            User registeredUser = userService.registerUser(user);
             
-            // Create session and log in the user
-            HttpSession session = req.getSession(true);
-            session.setAttribute("user", user);
-            
-            // Set success message and redirect to home
-            setFlashMessage(req, "success", "Registration successful! Welcome to Pizza Delivery.");
-            resp.sendRedirect(req.getContextPath() + "/");
+            if (registeredUser != null) {
+                // Set success message and redirect to login
+                req.getSession().setAttribute("success", "Registration successful! You can now log in.");
+                resp.sendRedirect(req.getContextPath() + "/login");
+            } else {
+                req.setAttribute("error", "Registration failed. Please try again.");
+                req.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(req, resp);
+            }
         } catch (ValidationException e) {
-            // If validation failed, show error message
             req.setAttribute("error", e.getMessage());
-            storeFormData(req);
             req.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(req, resp);
         } catch (ServiceException e) {
-            // Log the error and show a generic message
-            getServletContext().log("Error during registration", e);
-            req.setAttribute("error", "An error occurred. Please try again later.");
-            storeFormData(req);
+            // Enhanced error handling for duplicate user information
+            String errorMessage = e.getMessage();
+            
+            if (e.getCause() != null && e.getCause() instanceof SQLException) {
+                SQLException sqlEx = (SQLException) e.getCause();
+                String sqlMessage = sqlEx.getMessage().toLowerCase();
+                
+                // Check for common duplicate key error patterns
+                if (sqlMessage.contains("duplicate") || sqlMessage.contains("unique constraint")) {
+                    if (sqlMessage.contains("username") || 
+                        sqlMessage.contains("user_username_key") || 
+                        sqlMessage.contains("users.username")) {
+                        errorMessage = "Username '" + username + "' is already taken";
+                    } else if (sqlMessage.contains("email") || 
+                               sqlMessage.contains("user_email_key") || 
+                               sqlMessage.contains("users.email")) {
+                        errorMessage = "Email '" + email + "' is already in use";
+                    } else {
+                        errorMessage = "A user with this information already exists";
+                    }
+                }
+            }
+            
+            req.setAttribute("error", errorMessage);
             req.getRequestDispatcher("/WEB-INF/views/auth/register.jsp").forward(req, resp);
         }
     }
@@ -101,8 +153,7 @@ public class RegisterServlet extends BaseServlet {
      */
     private void storeFormData(HttpServletRequest req) {
         req.setAttribute("username", req.getParameter("username"));
-        req.setAttribute("fullName", req.getParameter("fullName"));
         req.setAttribute("email", req.getParameter("email"));
-        req.setAttribute("phone", req.getParameter("phone"));
+        req.setAttribute("contactNumber", req.getParameter("contactNumber"));
     }
 }

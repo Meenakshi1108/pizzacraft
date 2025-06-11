@@ -49,10 +49,9 @@
                                                 </span>
                                             </td>
                                             <td>${order.deliveryAddress}</td>
-                                            <td>${order.orderItems.size()} items</td>
-                                            <td>
+                                            <td>${order.orderItems.size()} items</td>                                            <td>
                                                 <div class="btn-group">
-                                                    <a href="${pageContext.request.contextPath}/orders/${order.id}" 
+                                                    <a href="${pageContext.request.contextPath}/view-order/${order.id}" 
                                                        class="btn btn-sm btn-outline-secondary">
                                                         <i class="fas fa-info-circle"></i> Details
                                                     </a>
@@ -127,9 +126,8 @@
                                                 </span>
                                             </td>
                                             <td>${order.orderItems.size()} items</td>
-                                            <td>${order.deliveryAddress}</td>
-                                            <td>
-                                                <a href="${pageContext.request.contextPath}/orders/${order.id}" 
+                                            <td>${order.deliveryAddress}</td>                                            <td>
+                                                <a href="${pageContext.request.contextPath}/view-order/${order.id}" 
                                                    class="btn btn-sm btn-outline-secondary">
                                                     <i class="fas fa-info-circle"></i> Details
                                                 </a>

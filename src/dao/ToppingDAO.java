@@ -176,4 +176,18 @@ public class ToppingDAO {
         topping.setVegetarian(rs.getBoolean("is_vegetarian"));
         return topping;
     }
+    
+    /**
+     * Closes database resources safely
+     */
+    protected void closeResources(Connection conn, PreparedStatement stmt, ResultSet rs) {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 }

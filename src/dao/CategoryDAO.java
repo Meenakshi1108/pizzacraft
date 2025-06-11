@@ -153,4 +153,17 @@ public class CategoryDAO {
         category.setDescription(rs.getString("description"));
         return category;
     }
+    
+    /**
+     * Closes database resources safely
+     */
+    protected void closeResources(Connection conn, PreparedStatement stmt, ResultSet rs) {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 }

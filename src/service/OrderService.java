@@ -5,27 +5,23 @@ import java.sql.SQLException;
 import java.util.List;
 
 import dao.OrderDAO;
-import dao.OrderItemDAO;
 import dao.PizzaDAO;
 import dao.UserDAO;
 import model.Order;
 import model.OrderItem;
 import model.Pizza;
 import model.User;
-// import service.ValidationException;
+import util.NotificationUtil;
 /**
  * Service for handling order-related business logic
  */
-public class OrderService {
-    
+public class OrderService {    
     private final OrderDAO orderDAO;
-    private final OrderItemDAO orderItemDAO;
     private final PizzaDAO pizzaDAO;
     private final UserDAO userDAO;
     
     public OrderService() {
         this.orderDAO = new OrderDAO();
-        this.orderItemDAO = new OrderItemDAO();
         this.pizzaDAO = new PizzaDAO();
         this.userDAO = new UserDAO();
     }
@@ -83,47 +79,151 @@ public class OrderService {
             throw new ServiceException("Error placing order", e);
         }
     }
-    
-    /**
+      /**
      * Gets an order by its ID
      * 
      * @param id The order ID
      * @return The order if found, null otherwise
      * @throws ServiceException If a service error occurs
-     */
-    public Order getOrderById(int id) throws ServiceException {
+     */    public Order getOrderById(int id) throws ServiceException {
         try {
-            return orderDAO.findById(id);
+            Order order = orderDAO.findById(id);
+            
+            if (order != null) {
+                if (order.getDeliveryPersonId() != null) {
+                    try {
+                        User deliveryPerson = userDAO.findById(order.getDeliveryPersonId());
+                        if (deliveryPerson != null) {
+                            order.setDeliveryPersonName(deliveryPerson.getFullName());
+                        } else {
+                            // Set a default name if deliveryPerson is null
+                            order.setDeliveryPersonName("Unknown Delivery Person");
+                            System.err.println("Delivery person not found for ID: " + order.getDeliveryPersonId());
+                        }
+                    } catch (SQLException ex) {
+                        // Handle exception and set a default name
+                        order.setDeliveryPersonName("Delivery Person");
+                        System.err.println("Error retrieving delivery person for order #" + 
+                                          order.getId() + ": " + ex.getMessage());
+                        ex.printStackTrace();
+                    }
+                } else {
+                    // Ensure not null for JSP display
+                    order.setDeliveryPersonName(null);
+                }
+            }
+            
+            return order;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new ServiceException("Error getting order by ID", e);
         }
     }
-    
-    /**
+      /**
      * Gets all orders
      * 
      * @return List of all orders
      * @throws ServiceException If a service error occurs
-     */
-    public List<Order> getAllOrders() throws ServiceException {
+     */    public List<Order> getAllOrders() throws ServiceException {
         try {
-            return orderDAO.findAll();
+            System.out.println("DEBUG: Calling orderDAO.findAll()");
+            List<Order> orders = orderDAO.findAll();
+            System.out.println("DEBUG: Found " + orders.size() + " orders");
+            
+            // Loop through orders to add delivery person names
+            for (Order order : orders) {
+                try {
+                    System.out.println("DEBUG: Processing order ID: " + order.getId());
+                    
+                    if (order == null) {
+                        System.err.println("WARNING: Null order in orders list");
+                        continue;
+                    }
+                    
+                    // Check for null delivery person ID
+                    Integer deliveryPersonId = order.getDeliveryPersonId();
+                    System.out.println("DEBUG: Order " + order.getId() + " delivery person ID: " + 
+                                       (deliveryPersonId != null ? deliveryPersonId : "null"));
+                    
+                    if (deliveryPersonId != null) {
+                        try {
+                            User deliveryPerson = userDAO.findById(deliveryPersonId);
+                            if (deliveryPerson != null) {
+                                String fullName = deliveryPerson.getFullName();
+                                System.out.println("DEBUG: Found delivery person: " + fullName);
+                                order.setDeliveryPersonName(fullName);
+                            } else {
+                                // Set a default name if deliveryPerson is null
+                                System.err.println("WARNING: Delivery person not found for ID: " + deliveryPersonId);
+                                order.setDeliveryPersonName("Unknown Delivery Person");
+                            }
+                        } catch (SQLException ex) {
+                            // Handle exception and set a default name
+                            System.err.println("ERROR: Exception retrieving delivery person for order #" + 
+                                              order.getId() + ": " + ex.getMessage());
+                            ex.printStackTrace();
+                            order.setDeliveryPersonName("Delivery Person");
+                        }
+                    } else {
+                        // Ensure not null for JSP display
+                        System.out.println("DEBUG: No delivery person assigned to order " + order.getId());
+                        order.setDeliveryPersonName(null);
+                    }
+                } catch (Exception ex) {
+                    System.err.println("ERROR: Unexpected exception processing order: " + ex.getMessage());
+                    ex.printStackTrace();
+                }
+            }
+            
+            return orders;
         } catch (SQLException e) {
-            throw new ServiceException("Error getting all orders", e);
+            System.err.println("ERROR: Failed to get all orders: " + e.getMessage());
+            e.printStackTrace();
+            throw new ServiceException("Error getting all orders: " + e.getMessage(), e);
+        } catch (Exception e) {
+            System.err.println("ERROR: Unexpected exception in getAllOrders: " + e.getMessage());
+            e.printStackTrace();
+            throw new ServiceException("Unexpected error getting all orders: " + e.getMessage(), e);
         }
     }
-    
-    /**
+      /**
      * Gets all orders for a specific user
      * 
      * @param userId The user ID
      * @return List of orders for the user
      * @throws ServiceException If a service error occurs
-     */
-    public List<Order> getOrdersByUser(int userId) throws ServiceException {
+     */    public List<Order> getOrdersByUser(int userId) throws ServiceException {
         try {
-            return orderDAO.findByUserId(userId);
+            List<Order> orders = orderDAO.findByUserId(userId);
+            
+            // Loop through orders to add delivery person names
+            for (Order order : orders) {
+                if (order.getDeliveryPersonId() != null) {
+                    try {
+                        User deliveryPerson = userDAO.findById(order.getDeliveryPersonId());
+                        if (deliveryPerson != null) {
+                            order.setDeliveryPersonName(deliveryPerson.getFullName());
+                        } else {
+                            // Set a default name if deliveryPerson is null
+                            order.setDeliveryPersonName("Unknown Delivery Person");
+                            System.err.println("Delivery person not found for ID: " + order.getDeliveryPersonId());
+                        }
+                    } catch (SQLException ex) {
+                        // Handle exception and set a default name
+                        order.setDeliveryPersonName("Delivery Person");
+                        System.err.println("Error retrieving delivery person for order #" + 
+                                           order.getId() + ": " + ex.getMessage());
+                        ex.printStackTrace();
+                    }
+                } else {
+                    // Ensure not null for JSP display
+                    order.setDeliveryPersonName(null);
+                }
+            }
+            
+            return orders;
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new ServiceException("Error getting orders for user", e);
         }
     }
@@ -258,53 +358,56 @@ public class OrderService {
         }
     }
 
-/**
- * Assigns an order to a delivery person
- * 
- * @param orderId The ID of the order
- * @param deliveryPersonId The ID of the delivery person
- * @return true if assignment was successful, false otherwise
- * @throws ValidationException If validation fails
- * @throws ServiceException If a service error occurs
- */
-public boolean assignOrderToDeliveryPerson(int orderId, int deliveryPersonId) 
-        throws ValidationException, ServiceException {
-    try {
-        // Check if the order exists
-        Order order = orderDAO.findById(orderId);
-        if (order == null) {
-            throw new ValidationException("Order not found");
+    /**
+     * Assigns an order to a delivery person
+     * 
+     * @param orderId The ID of the order
+     * @param deliveryPersonId The ID of the delivery person
+     * @return true if successful, false otherwise
+     * @throws ValidationException If validation fails
+     * @throws ServiceException If a service error occurs
+     */
+    public boolean assignOrderToDeliveryPerson(int orderId, int deliveryPersonId) 
+            throws ValidationException, ServiceException {
+        try {
+            // Get the order
+            Order order = orderDAO.findById(orderId);
+            if (order == null) {
+                throw new ValidationException("Order not found");
+            }
+            
+            // Get the delivery person
+            User deliveryPerson = userDAO.findById(deliveryPersonId);
+            if (deliveryPerson == null) {
+                throw new ValidationException("Delivery person not found");
+            }
+              // Validate delivery person role
+            String role = deliveryPerson.getRole();
+            if (!User.ROLE_DELIVERY.equals(role) && !User.ROLE_DELIVERY_PERSON.equals(role)) {
+                System.err.println("DEBUG: Invalid delivery person role: " + role);
+                throw new ValidationException("Selected user is not a delivery person");
+            } else {
+                System.out.println("DEBUG: Valid delivery person role: " + role);
+            }// Update the order with the delivery person
+            order.setDeliveryPersonId(deliveryPersonId);
+            order.setAssignedToUserId(deliveryPersonId);
+            
+            // Set the delivery person name
+            order.setDeliveryPersonName(deliveryPerson.getFullName());
+            
+            // If order is ready and not yet dispatched, update status to out for delivery
+            if ("READY".equals(order.getOrderStatus())) {
+                order.setOrderStatus("OUT_FOR_DELIVERY");
+            }
+            
+            // Update the order
+            return orderDAO.updateOrder(order);
+            
+        } catch (SQLException e) {
+            throw new ServiceException("Error assigning order to delivery person", e);
         }
-        
-        // Check if the delivery person exists and has the correct role
-        User deliveryPerson = userDAO.findById(deliveryPersonId);
-        if (deliveryPerson == null) {
-            throw new ValidationException("Delivery person not found");
-        }
-        
-        if (!User.ROLE_DELIVERY.equals(deliveryPerson.getRole())) {
-            throw new ValidationException("Selected user is not a delivery person");
-        }
-        
-        // Check if the order is in a valid status for assignment
-        if (!("PLACED".equals(order.getOrderStatus()) || 
-              "PREPARING".equals(order.getOrderStatus()) || 
-              "READY".equals(order.getOrderStatus()))) {
-            throw new ValidationException("Cannot assign this order in its current status");
-        }
-        
-        // Update the order status to READY if not already
-        if (!"READY".equals(order.getOrderStatus())) {
-            orderDAO.updateOrderStatus(orderId, "READY");
-        }
-        
-        // Assign the delivery person
-        return orderDAO.assignDeliveryPerson(orderId, deliveryPersonId);
-    } catch (SQLException e) {
-        throw new ServiceException("Error assigning delivery person to order", e);
     }
-}
-
+    
     /**
      * Marks an order as out for delivery
      * 
@@ -346,8 +449,7 @@ public boolean assignOrderToDeliveryPerson(int orderId, int deliveryPersonId)
      * @return true if update was successful, false otherwise
      * @throws ValidationException If validation fails
      * @throws ServiceException If a service error occurs
-     */
-    public boolean markOrderDelivered(int orderId, int deliveryPersonId) 
+     */    public boolean markOrderDelivered(int orderId, int deliveryPersonId) 
             throws ValidationException, ServiceException {
         try {
             // Check if the order exists and is assigned to this delivery person
@@ -364,8 +466,28 @@ public boolean assignOrderToDeliveryPerson(int orderId, int deliveryPersonId)
                 throw new ValidationException("Order is not out for delivery");
             }
             
+            // Get the delivery person name for the notification
+            User deliveryPerson = userDAO.findById(deliveryPersonId);
+            String deliveryPersonName = deliveryPerson != null ? 
+                deliveryPerson.getFullName() : "Delivery Person";
+
             // Update the order status and set delivered_at timestamp
-            return orderDAO.markOrderDelivered(orderId);
+            boolean success = orderDAO.markOrderDelivered(orderId);
+            
+            if (success) {
+                // Send notification about the order delivery
+                order.setOrderStatus("DELIVERED"); // Update the local object to reflect the new status
+                util.NotificationUtil.sendOrderNotification(
+                    order,
+                    "success",
+                    "Your order has been delivered by " + deliveryPersonName
+                );
+                
+                System.out.println("DEBUG: Order #" + orderId + " marked as delivered by " 
+                    + deliveryPersonName);
+            }
+            
+            return success;
         } catch (SQLException e) {
             throw new ServiceException("Error marking order as delivered", e);
         }
@@ -383,6 +505,91 @@ public boolean assignOrderToDeliveryPerson(int orderId, int deliveryPersonId)
             return orderDAO.findByDeliveryPersonId(deliveryPersonId);
         } catch (SQLException e) {
             throw new ServiceException("Error getting orders for delivery person", e);
+        }
+    }
+      /**
+     * Gets the most recent orders
+     * 
+     * @param limit Maximum number of orders to return
+     * @return List of recent orders
+     * @throws ServiceException If a service error occurs
+     */
+    public List<Order> getRecentOrders(int limit) throws ServiceException {
+        try {
+            return orderDAO.findRecentOrders(limit);
+        } catch (SQLException e) {
+            throw new ServiceException("Error getting recent orders", e);
+        }
+    }
+    
+    /**
+     * Counts all orders
+     * 
+     * @return Count of all orders
+     * @throws ServiceException If a service error occurs
+     */
+    public int countAllOrders() throws ServiceException {
+        try {
+            return orderDAO.countAll();
+        } catch (SQLException e) {
+            throw new ServiceException("Error counting orders", e);
+        }
+    }
+    
+    /**
+     * Counts orders by status
+     * 
+     * @param status The order status to count
+     * @return Count of orders with the specified status
+     * @throws ServiceException If a service error occurs
+     */
+    public int countOrdersByStatus(String status) throws ServiceException {
+        try {
+            return orderDAO.countByStatus(status);
+        } catch (SQLException e) {
+            throw new ServiceException("Error counting orders by status", e);
+        }
+    }
+    
+    /**
+     * Calculates the total revenue from all orders
+     * 
+     * @return Total revenue
+     * @throws ServiceException If a service error occurs
+     */
+    public BigDecimal calculateTotalRevenue() throws ServiceException {
+        try {
+            return orderDAO.calculateTotalRevenue();
+        } catch (SQLException e) {
+            throw new ServiceException("Error calculating total revenue", e);
+        }
+    }
+    
+    /**
+     * Calculates the revenue for today
+     * 
+     * @return Today's revenue
+     * @throws ServiceException If a service error occurs
+     */
+    public BigDecimal calculateTodayRevenue() throws ServiceException {
+        try {
+            return orderDAO.calculateTodayRevenue();
+        } catch (SQLException e) {
+            throw new ServiceException("Error calculating today's revenue", e);
+        }
+    }
+    
+    /**
+     * Calculates the revenue for the current week
+     * 
+     * @return Weekly revenue
+     * @throws ServiceException If a service error occurs
+     */
+    public BigDecimal calculateWeeklyRevenue() throws ServiceException {
+        try {
+            return orderDAO.calculateWeeklyRevenue();
+        } catch (SQLException e) {
+            throw new ServiceException("Error calculating weekly revenue", e);
         }
     }
 }

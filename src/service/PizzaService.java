@@ -178,6 +178,48 @@ public class PizzaService {
     }
     
     /**
+     * Counts available pizzas
+     * 
+     * @return Count of available pizzas
+     * @throws ServiceException If a service error occurs
+     */
+    public int countAvailablePizzas() throws ServiceException {
+        try {
+            return pizzaDAO.countByAvailability(true);
+        } catch (SQLException e) {
+            throw new ServiceException("Error counting available pizzas", e);
+        }
+    }
+    
+    /**
+     * Counts unavailable pizzas
+     * 
+     * @return Count of unavailable pizzas
+     * @throws ServiceException If a service error occurs
+     */
+    public int countUnavailablePizzas() throws ServiceException {
+        try {
+            return pizzaDAO.countByAvailability(false);
+        } catch (SQLException e) {
+            throw new ServiceException("Error counting unavailable pizzas", e);
+        }
+    }
+    
+    /**
+     * Counts all pizzas
+     * 
+     * @return Total count of pizzas
+     * @throws ServiceException If a service error occurs
+     */
+    public int countTotalPizzas() throws ServiceException {
+        try {
+            return pizzaDAO.countAll();
+        } catch (SQLException e) {
+            throw new ServiceException("Error counting total pizzas", e);
+        }
+    }
+    
+    /**
      * Validates a pizza
      * 
      * @param pizza The pizza to validate

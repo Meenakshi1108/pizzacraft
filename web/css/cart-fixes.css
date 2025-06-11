@@ -1,0 +1,48 @@
+/* Cart Page Fixes */
+
+.cart-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+/* Fix for quantity inputs */
+.quantity-form {
+  max-width: 150px;
+}
+
+.quantity-form .input-group {
+  flex-wrap: nowrap;
+}
+
+.quantity-form .form-control-sm {
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+  width: 50px;
+}
+
+.quantity-form .btn-sm {
+  padding: 0.25rem 0.5rem;
+}
+
+/* Responsive improvements */
+@media (max-width: 767px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .cart-item-image {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .cart-summary {
+    margin-top: 2rem;
+  }
+}
+
+/* Remove refresh button styling */
+.btn-refresh {
+  display: none !important;
+}

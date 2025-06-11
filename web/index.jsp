@@ -7,47 +7,58 @@
     <jsp:param name="title" value="Welcome to PizzaCraft" />
 </jsp:include>
 
-<!-- Hero Section with Better Design -->
-<div class="hero-section">
-    <div class="hero-content">
-        <h1 class="hero-title">Authentic Indian Flavors,<br>Handcrafted Pizzas</h1>
-        <p class="hero-subtitle">Experience the perfect blend of traditional Italian bases with rich Indian spices</p>
-        <a href="${pageContext.request.contextPath}/menu" class="btn btn-lg btn-hero pulse-animation">
-            <i class="fas fa-pizza-slice"></i> Explore Our Menu
-        </a>
-    </div>
+<!-- Hero Section -->
+<section class="hero-section">
     <div class="hero-overlay"></div>
-</div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title display-4 fw-bold text-white mb-3">Authentic Indian Flavors,<br>Handcrafted Pizzas</h1>
+            <p class="hero-subtitle lead text-white mb-4">Experience the perfect blend of traditional Italian bases with rich Indian spices</p>
+            <a href="${pageContext.request.contextPath}/menu" class="btn btn-lg btn-danger pulse-animation">
+                <i class="fas fa-pizza-slice me-2"></i> Explore Our Menu
+            </a>
+        </div>
+    </div>
+</section>
 
 <!-- Feature Cards with Textured Background -->
-<div class="features-section py-4">
+<div class="features-section py-5 bg-light">
     <div class="container">
-        <div class="row">
+        <div class="text-center mb-5">            <h2 class="section-title">Why Choose PizzaCraft?</h2>
+            <p class="section-subtitle text-muted">What makes our pizzas special</p>
+        </div>
+        <div class="row g-4">
             <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-pizza-slice"></i>
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-fire-alt fa-3x text-danger"></i>
+                        </div>
+                        <h4 class="card-title">Fresh Ingredients</h4>
+                        <p class="card-text">We use only the freshest ingredients sourced locally to create our delicious pizzas.</p>
                     </div>
-                    <h3>Authentic Flavors</h3>
-                    <p>Experience our tandoori, butter masala, and other Indian-inspired pizzas made with premium local spices.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shipping-fast"></i>
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-truck fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="card-title">Fast Delivery</h4>
+                        <p class="card-text">Our dedicated delivery team ensures your pizza arrives hot and fresh within 30 minutes.</p>
                     </div>
-                    <h3>Express Delivery</h3>
-                    <p>Hot and fresh delivery within 30 minutes, bringing delicious pizzas right to your doorstep.</p>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon mb-3">
+                            <i class="fas fa-leaf fa-3x text-success"></i>
+                        </div>
+                        <h4 class="card-title">Vegetarian Options</h4>
+                        <p class="card-text">We offer a wide range of vegetarian pizzas with authentic Indian flavors.</p>
                     </div>
-                    <h3>Easy Ordering</h3>
-                    <p>Order with just a few taps on our user-friendly website and track your delivery in real-time.</p>
                 </div>
             </div>
         </div>
@@ -55,83 +66,73 @@
 </div>
 
 <!-- Popular Pizzas Section -->
-<div class="popular-section py-4">
+<div class="popular-section py-5">
     <div class="container">
-        <div class="section-title">
-            <h2>Our Chef's Specials</h2>
-            <div class="spice-divider">
-                <i class="fas fa-pepper-hot"></i>
+        <div class="text-center mb-5">
+            <h2 class="section-title">Our Chef's Specials</h2>
+            <p class="section-subtitle text-muted">Try our most popular creations</p>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="${pageContext.request.contextPath}/images/tandooripanner.jpg" class="card-img-top" alt="Tandoori Paneer Pizza">
+                    <div class="card-body">
+                        <h5 class="card-title">Paneer Special</h5>
+                        <p class="card-text">Fresh paneer, capsicum, onions with spicy sauce</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="price">₹299</span>
+                            <a href="${pageContext.request.contextPath}/pizza/7" class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="${pageContext.request.contextPath}/images/chicken-tikka.jpg" class="card-img-top" alt="Chicken Tikka Pizza">
+                    <div class="card-body">
+                        <h5 class="card-title">Chicken Tikka</h5>
+                        <p class="card-text">Spicy chicken tikka chunks with bell peppers and onions.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="price">₹349</span>
+                            <a href="${pageContext.request.contextPath}/pizza/14" class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <img src="${pageContext.request.contextPath}/images/cheeseburst.jpeg" class="card-img-top" alt="Cheese Burst Pizza">
+                    <div class="card-body">
+                        <h5 class="card-title">Cheese Burst</h5>
+                        <p class="card-text">Loaded with extra cheese inside the crust for the ultimate cheese lover.</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="price">₹399</span>
+                            <a href="${pageContext.request.contextPath}/pizza/19" class="btn btn-sm btn-outline-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-4">
-                <div class="pizza-card">
-                    <div class="pizza-img">
-                        <img src="${pageContext.request.contextPath}/images/tandooripanner.jpg" alt="Tandoori Paneer">
-                        <div class="veg-badge"><i class="fas fa-circle"></i></div>
-                    </div>
-                    <div class="pizza-content">
-                        <h3>Tandoori Paneer Pizza</h3>
-                        <div class="spice-level">
-                            <span>Spice Level:</span>
-                            <i class="fas fa-pepper-hot"></i>
-                            <i class="fas fa-pepper-hot"></i>
-                            <i class="fas fa-pepper-hot"></i>
-                        </div>
-                        <div class="pizza-price">&#8377;329</div>
-                        <a href="${pageContext.request.contextPath}/pizza/13" class="btn btn-outline-primary">Order Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="pizza-card">
-                    <div class="pizza-img">
-                        <img src="${pageContext.request.contextPath}/images/chicken.jpg" alt="Chicken Supreme">
-                        <div class="nonveg-badge"><i class="fas fa-circle"></i></div>
-                    </div>
-                    <div class="pizza-content">
-                        <h3>Chicken Supreme</h3>
-                        <div class="spice-level">
-                            <span>Spice Level:</span>
-                            <i class="fas fa-pepper-hot"></i>
-                            <i class="fas fa-pepper-hot"></i>
-                        </div>
-                        <div class="pizza-price">&#8377;349</div>
-                        <a href="${pageContext.request.contextPath}/pizza/10" class="btn btn-outline-primary">Order Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="pizza-card">
-                    <div class="pizza-img">
-                        <img src="${pageContext.request.contextPath}/images/cheeseburst.jpeg" alt="Cheese Burst">
-                        <div class="veg-badge"><i class="fas fa-circle"></i></div>
-                    </div>
-                    <div class="pizza-content">
-                        <h3>Cheese Burst Pizza</h3>
-                        <div class="spice-level">
-                            <span>Spice Level:</span>
-                            <i class="fas fa-pepper-hot"></i>
-                        </div>
-                        <div class="pizza-price">&#8377;349</div>
-                        <a href="${pageContext.request.contextPath}/pizza/19" class="btn btn-outline-primary">Order Now</a>
-                    </div>
-                </div>
-            </div>
+        <div class="text-center mt-4">
+            <a href="${pageContext.request.contextPath}/menu" class="btn btn-lg btn-primary">
+                <i class="fas fa-utensils me-2"></i> View Full Menu
+            </a>
         </div>
     </div>
 </div>
 
 <!-- Call to Action Section -->
-<div class="cta-section py-3">
+<div class="cta-section py-5 bg-dark text-white">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-md-8">
-                <h3>Ready to experience authentic Indian pizzas?</h3>
-                <p>Order now</p>
+            <div class="col-lg-9">
+                <h3 class="mb-3 mb-lg-0">Ready to taste the best pizza in town?</h3>
+                <p class="lead mb-0 d-none d-lg-block">Order now and get it delivered to your doorstep!</p>
             </div>
-            <div class="col-md-4 text-center text-md-right">
-                <a href="${pageContext.request.contextPath}/register" class="btn btn-light btn-lg">Sign Up Now</a>
+            <div class="col-lg-3 text-center text-lg-end">
+                <a href="${pageContext.request.contextPath}/menu" class="btn btn-lg btn-danger">
+                    <i class="fas fa-shopping-cart me-2"></i> Order Now
+                </a>
             </div>
         </div>
     </div>

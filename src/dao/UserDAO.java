@@ -98,14 +98,13 @@ public class UserDAO {
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
             stmt.setString(1, username);
             
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return mapResultSetToUser(rs);
                 } else {
-                    return null; // User not found
+                    return null;
                 }
             }
         }
@@ -123,14 +122,13 @@ public class UserDAO {
         
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            
             stmt.setString(1, email);
             
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return mapResultSetToUser(rs);
                 } else {
-                    return null; // User not found
+                    return null;
                 }
             }
         }
@@ -184,51 +182,122 @@ public class UserDAO {
             return affectedRows > 0;
         }
     }
-    
+
     /**
      * Deletes a user from the database
      * 
-     * @param id The ID of the user to delete
+     * @param userId The ID of the user to delete
      * @return true if the deletion was successful, false otherwise
      * @throws SQLException If a database error occurs
      */
-    public boolean deleteUser(int id) throws SQLException {
+    public boolean deleteUser(int userId) throws SQLException {
         String sql = "DELETE FROM users WHERE id = ?";
-        
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             
-            stmt.setInt(1, id);
+            stmt.setInt(1, userId);
             
             int affectedRows = stmt.executeUpdate();
             return affectedRows > 0;
         }
     }
+    
     /**
-     * Finds users by role
+     * Counts users by role
      * 
-     * @param role The role to search for
-     * @return List of users with the specified role
+     * @param role The role to count
+     * @return The number of users with the specified role
      * @throws SQLException If a database error occurs
      */
-    public List<User> findByRole(String role) throws SQLException {
-        String sql = "SELECT * FROM users WHERE role = ?";
-        List<User> users = new ArrayList<>();
-        
+    public int countByRole(String role) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM users WHERE role = ?";
         try (Connection conn = DatabaseConnection.getConnection();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
             
             stmt.setString(1, role);
             
             try (ResultSet rs = stmt.executeQuery()) {
-                while (rs.next()) {
-                    users.add(mapResultSetToUser(rs));
+                if (rs.next()) {
+                    return rs.getInt(1);
                 }
+                return 0;
             }
         }
+    }
+    
+    /**
+     * Counts all users
+     * 
+     * @return The total number of users
+     * @throws SQLException If a database error occurs
+     */
+    public int countAll() throws SQLException {
+        String sql = "SELECT COUNT(*) FROM users";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        }
+    }
+    
+    /**
+     * Finds users by role
+     * 
+     * @param role The role to filter by
+     * @return List of users with the specified role
+     * @throws SQLException If a database error occurs
+     */    public List<User> findByRole(String role) throws SQLException {
+        String sql = "SELECT * FROM users WHERE role = ?";
+        List<User> users = new ArrayList<>();
         
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            System.out.println("DEBUG: Finding users with role: " + role);
+            stmt.setString(1, role);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    User user = mapResultSetToUser(rs);
+                    users.add(user);
+                    System.out.println("DEBUG: Found user with role " + role + ": " + user.getUsername());
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error finding users by role: " + role);
+            e.printStackTrace();
+            throw e;
+        }
+        
+        System.out.println("DEBUG: Found " + users.size() + " users with role: " + role);
         return users;
     }
+    
+    /**
+     * Updates a user's password
+     * 
+     * @param userId The user ID
+     * @param hashedPassword The hashed password
+     * @return true if successful, false otherwise
+     */
+    public boolean updatePassword(int userId, String hashedPassword) throws SQLException {
+        String sql = "UPDATE users SET password = ? WHERE id = ?";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setString(1, hashedPassword);
+            stmt.setInt(2, userId);
+            
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;
+        }
+    }
+    
     /**
      * Helper method to map a ResultSet row to a User object
      * 
@@ -248,5 +317,16 @@ public class UserDAO {
         user.setRole(rs.getString("role"));
         user.setCreatedAt(rs.getTimestamp("created_at"));
         return user;
+    }
+
+    // Add this helper method to BaseDAO.java
+    protected void closeResources(Connection conn, PreparedStatement stmt, ResultSet rs) {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

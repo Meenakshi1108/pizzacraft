@@ -13,7 +13,7 @@ import service.OrderService;
 import service.ServiceException;
 
 /**
- * Servlet for displaying order history
+ * Servlet for displaying a user's order history
  */
 @WebServlet("/orders")
 public class OrderHistoryServlet extends BaseServlet {
@@ -25,27 +25,30 @@ public class OrderHistoryServlet extends BaseServlet {
         orderService = new OrderService();
     }
     
-    /**
-     * Handles GET requests - displays the user's order history
-     */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) 
             throws ServletException, IOException {
-        // Must be logged in to see orders
+        // Ensure user is logged in
         if (!requireLogin(req, resp)) {
             return;
         }
         
         try {
+            // Get logged in user
             User user = getLoggedInUser(req);
+            
+            // Get user's orders
             List<Order> orders = orderService.getOrdersByUser(user.getId());
             
+            // Set orders as request attribute
             req.setAttribute("orders", orders);
+            
+            // Forward to the orders index page
             req.getRequestDispatcher("/WEB-INF/views/orders/index.jsp").forward(req, resp);
         } catch (ServiceException e) {
-            getServletContext().log("Error getting order history", e);
-            req.setAttribute("error", "An error occurred while retrieving your orders.");
-            req.getRequestDispatcher("/WEB-INF/views/error/error.jsp").forward(req, resp);
+            getServletContext().log("Error retrieving order history", e);
+            setFlashMessage(req, "error", "An error occurred while retrieving your order history.");
+            resp.sendRedirect(req.getContextPath() + "/");
         }
     }
 }

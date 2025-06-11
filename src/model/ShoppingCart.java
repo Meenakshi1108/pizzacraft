@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,9 @@ import java.util.Objects;
 /**
  * Represents a shopping cart
  */
-public class ShoppingCart {
+public class ShoppingCart implements Serializable {
     
+    private static final long serialVersionUID = 1L;
     private List<CartItem> items;
     private BigDecimal total;
     
@@ -94,12 +96,17 @@ public class ShoppingCart {
     }
     
     /**
-     * Gets the number of items in the cart
+     * Gets the total number of items in the cart
+     * This counts the total of all quantities, not just unique items
      * 
-     * @return The number of items
+     * @return Total number of items
      */
     public int getItemCount() {
-        return items.size();
+        int count = 0;
+        for (CartItem item : items) {
+            count += item.getQuantity();
+        }
+        return count;
     }
     
     /**
@@ -174,7 +181,8 @@ public class ShoppingCart {
     /**
      * Represents an item in the shopping cart
      */
-    public static class CartItem {
+    public static class CartItem implements Serializable {
+        private static final long serialVersionUID = 1L;
         private Pizza pizza;
         private int quantity;
         private List<Topping> toppings;
@@ -211,6 +219,16 @@ public class ShoppingCart {
         
         public BigDecimal getItemPrice() {
             return pizza.getPrice().add(getToppingsCost());
+        }
+        
+        /**
+         * Gets the unit price (base price plus toppings)
+         * This is a convenience method that returns the same as getItemPrice()
+         * 
+         * @return The unit price of this item
+         */
+        public BigDecimal getUnitPrice() {
+            return getItemPrice(); // Returns pizza price + toppings cost
         }
         
         public BigDecimal getSubtotal() {

@@ -11,8 +11,7 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    
-    <!-- Error Pages -->
+      <!-- Error Pages -->
     <error-page>
         <error-code>404</error-code>
         <location>/WEB-INF/views/error/404.jsp</location>
@@ -20,13 +19,23 @@
     
     <error-page>
         <error-code>500</error-code>
-        <location>/WEB-INF/views/error/500.jsp</location>
+        <location>/system-error</location>
     </error-page>
     
     <error-page>
         <exception-type>java.lang.Exception</exception-type>
-        <location>/WEB-INF/views/error/error.jsp</location>
+        <location>/system-error</location>
     </error-page>
+    
+    <!-- Error Handler Servlet Mapping -->
+    <servlet>
+        <servlet-name>GlobalErrorServlet</servlet-name>
+        <servlet-class>listeners.GlobalErrorServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GlobalErrorServlet</servlet-name>
+        <url-pattern>/system-error</url-pattern>
+    </servlet-mapping>
     
     <!-- Session Configuration -->
     <session-config>

@@ -283,4 +283,77 @@ public class OrderItemDAO {
         item.setPrice(rs.getBigDecimal("price"));
         return item;
     }
+        // Add this to a BaseDAO class or every DAO class
+    /**
+     * Closes database resources safely
+     */
+    protected void closeResources(Connection conn, PreparedStatement stmt, ResultSet rs) {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Fix this method signature in OrderItemDAO.java
+    public OrderItem createOrderItem(Connection conn, OrderItem item) throws SQLException {
+        boolean closeConnection = false;
+        
+        // If no connection was provided, create one
+        if (conn == null) {
+            conn = DatabaseConnection.getConnection();
+            closeConnection = true;
+        }
+        
+        try {
+            // First, insert the order item
+            String sql = "INSERT INTO order_items (order_id, pizza_id, quantity, price) " +
+                         "VALUES (?, ?, ?, ?)";
+            
+            PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, item.getOrderId());
+            stmt.setInt(2, item.getPizzaId());
+            stmt.setInt(3, item.getQuantity());
+            stmt.setBigDecimal(4, item.getPrice());
+            
+            int affectedRows = stmt.executeUpdate();
+            
+            if (affectedRows == 0) {
+                throw new SQLException("Creating order item failed, no rows affected.");
+            }
+            
+            // Get the generated item ID
+            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    int itemId = generatedKeys.getInt(1);
+                    item.setId(itemId);
+                    
+                    // If there are toppings, insert them
+                    if (item.getToppings() != null && !item.getToppings().isEmpty()) {
+                        for (Topping topping : item.getToppings()) {
+                            String toppingSql = "INSERT INTO order_item_toppings (order_item_id, topping_id) " +
+                                               "VALUES (?, ?)";
+                            
+                            try (PreparedStatement toppingStmt = conn.prepareStatement(toppingSql)) {
+                                toppingStmt.setInt(1, itemId);
+                                toppingStmt.setInt(2, topping.getId());
+                                toppingStmt.executeUpdate();
+                            }
+                        }
+                    }
+                    
+                    return item;
+                } else {
+                    throw new SQLException("Creating order item failed, no ID obtained.");
+                }
+            }
+        } finally {
+            // Only close the connection if we created it
+            if (closeConnection && conn != null) {
+                conn.close();
+            }
+        }
+    }
 }

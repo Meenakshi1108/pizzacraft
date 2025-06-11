@@ -60,13 +60,30 @@ body {
 /* Push the footer to the bottom */
 footer {
   margin-top: auto;
+  flex-shrink: 0;
   background-color: var(--dark-color) !important;
   padding: 2rem 0;
+  width: 100%;
+  z-index: 10;
 }
 
 /* Container padding */
 .container {
   padding: 1.5rem 15px;
+}
+
+.container.py-4 {
+    margin-bottom: 2rem; /* Add extra space at the bottom */
+}
+
+/* Ensure the footer stays at the bottom */
+.footer {
+    margin-top: auto;
+    flex-shrink: 0;
+    background-color: var(--dark-color) !important;
+    padding: 2rem 0;
+    width: 100%;
+    z-index: 10;
 }
 
 /* Cards with hover effects */
@@ -320,54 +337,6 @@ a.badge:hover {
   color: white !important;
 }
 
-/* Enhanced Home Page Styles */
-
-/* Hero Section */
-.hero-section {
-    position: relative;
-    height: 600px;
-    background: url('/PizzaDeliverySystem/images/panner.jpg') no-repeat center center;
-    background-size: cover;
-    background-attachment: fixed;
-    display: flex;
-    align-items: center;
-    color: white;
-    overflow: hidden;
-    margin-bottom: 0;
-    padding: 0;
-}
-
-.hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(210, 53, 0, 0.8) 0%, rgba(139, 0, 0, 0.8) 100%);
-    z-index: 1;
-}
-
-.hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 700px;
-    padding: 0 20px;
-    margin-left: 10%;
-}
-
-.hero-title {
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 20px;
-    text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-    line-height: 1.2;
-}
-
-.hero-subtitle {
-    font-size: 1.4rem;
-    margin-bottom: 30px;
-    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
-}
 
 .btn-hero {
     background-color: #fff;
@@ -525,6 +494,27 @@ a.badge:hover {
 
 .pizza-card:hover .pizza-img img {
     transform: scale(1.05);
+}
+
+/* Pizza image container for consistent sizing */
+.pizza-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Pizza badge for veg/non-veg indicator */
+.pizza-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border-radius: 20px;
+    padding: 2px 8px;
+    z-index: 2;
+}
+
+/* Font size utility class */
+.fs-7 {
+    font-size: 0.85rem;
 }
 
 .veg-badge, .nonveg-badge {

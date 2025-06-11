@@ -233,6 +233,50 @@ public class PizzaDAO {
     }
     
     /**
+     * Counts pizzas by availability
+     * 
+     * @param available Whether to count available or unavailable pizzas
+     * @return The count of pizzas with the specified availability
+     */
+    public int countByAvailability(boolean available) throws SQLException {
+        String sql = "SELECT COUNT(*) FROM pizzas WHERE available = ?";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            
+            stmt.setBoolean(1, available);
+            
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                } else {
+                    return 0;
+                }
+            }
+        }
+    }
+
+    /**
+     * Counts all pizzas
+     * 
+     * @return The total count of pizzas
+     */
+    public int countAll() throws SQLException {
+        String sql = "SELECT COUNT(*) FROM pizzas";
+        
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            
+            if (rs.next()) {
+                return rs.getInt(1);
+            } else {
+                return 0;
+            }
+        }
+    }
+    
+    /**
      * Helper method to map a ResultSet row to a Pizza object
      * 
      * @param rs The ResultSet positioned at the row to map
@@ -251,4 +295,19 @@ public class PizzaDAO {
         pizza.setAvailable(rs.getBoolean("is_available"));
         return pizza;
     }
+        // Add this to a BaseDAO class or every DAO class
+    /**
+     * Closes database resources safely
+     */
+    protected void closeResources(Connection conn, PreparedStatement stmt, ResultSet rs) {
+        try {
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
+            if (conn != null) conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

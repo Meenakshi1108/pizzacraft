@@ -56,3 +56,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+function formatCurrency(amount) {
+    return "₹" + parseFloat(amount).toFixed(2);
+}
