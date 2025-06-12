@@ -2,11 +2,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<%-- 
+  Delivery Dashboard - Shows all active and completed deliveries for the delivery person
+  Allows delivery person to mark orders as "picked up" or "delivered"
+--%>
 <jsp:include page="../common/header.jsp">
     <jsp:param name="title" value="Delivery Dashboard" />
 </jsp:include>
 
-<div class="row mb-4">
+<div class="container py-4">
+  <div class="row mb-4">
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
@@ -41,10 +46,9 @@
                                         <tr>
                                             <td>${order.id}</td>
                                             <td><fmt:formatDate value="${order.assignedAt}" pattern="HH:mm" /></td>
-                                            <td>
-                                                <span class="badge 
-                                                    ${order.orderStatus eq 'READY' ? 'badge-warning' :
-                                                     order.orderStatus eq 'OUT_FOR_DELIVERY' ? 'badge-dark' : 'badge-info'}">
+                                            <td>                                                <span class="badge 
+                                                    ${order.orderStatus eq 'READY' ? 'bg-warning' :
+                                                     order.orderStatus eq 'OUT_FOR_DELIVERY' ? 'bg-dark' : 'bg-info'}">
                                                     ${order.orderStatus}
                                                 </span>
                                             </td>
@@ -119,9 +123,8 @@
                                         <tr>
                                             <td>${order.id}</td>
                                             <td><fmt:formatDate value="${order.deliveredAt}" pattern="yyyy-MM-dd HH:mm" /></td>
-                                            <td>
-                                                <span class="badge 
-                                                    ${order.orderStatus eq 'DELIVERED' ? 'badge-success' : 'badge-danger'}">
+                                            <td>                                                <span class="badge 
+                                                    ${order.orderStatus eq 'DELIVERED' ? 'bg-success' : 'bg-danger'}">
                                                     ${order.orderStatus}
                                                 </span>
                                             </td>
@@ -137,11 +140,11 @@
                                 </tbody>
                             </table>
                         </div>
-                    </c:otherwise>
-                </c:choose>
+                    </c:otherwise>                </c:choose>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <jsp:include page="../common/footer.jsp" />

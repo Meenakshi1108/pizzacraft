@@ -419,17 +419,10 @@ public class UserService {
      * @param plainPassword The plain text password
      * @param hashedPassword The hashed password
      * @return true if the password matches, false otherwise
-     */
-    private boolean verifyPassword(String plainPassword, String hashedPassword) {
+     */    private boolean verifyPassword(String plainPassword, String hashedPassword) {
         return PasswordUtils.verifyPassword(plainPassword, hashedPassword);
-    }    /**
-     * Gets all users with the role of delivery person and their current delivery counts
-     * 
-     * @return A list of users with delivery person role
-     * @throws ServiceException If a service error occurs
-     */
+    }    
     public List<User> getDeliveryPersons() throws ServiceException {
-        System.out.println("DEBUG: getDeliveryPersons() called");
         List<User> deliveryPersons = new ArrayList<>();
         OrderDAO orderDAO = new OrderDAO();
         
@@ -438,12 +431,7 @@ public class UserService {
             try {
                 deliveryPersons = userDAO.findByRole(User.ROLE_DELIVERY);
             } catch (Exception e) {
-                System.out.println("DEBUG: Error using ROLE_DELIVERY, trying ROLE_DELIVERY_PERSON");
                 deliveryPersons = userDAO.findByRole("ROLE_DELIVERY_PERSON");
-            }
-            
-            if (deliveryPersons.isEmpty()) {
-                System.out.println("DEBUG: No delivery persons found with either role");
             }
             
             // Count active deliveries for each person
@@ -452,7 +440,6 @@ public class UserService {
                     int activeCount = orderDAO.countActiveDeliveriesByPerson(user.getId());
                     user.setActiveDeliveries(activeCount);
                 } catch (Exception e) {
-                    System.out.println("DEBUG: Error counting deliveries for user " + user.getId());
                     // Safe default
                     user.setActiveDeliveries(0);
                 }
@@ -460,7 +447,7 @@ public class UserService {
             
             return deliveryPersons;
         } catch (SQLException e) {
-            throw new ServiceException("Error retrieving delivery persons: " + e.getMessage(), e);
+            throw new ServiceException("Error retrieving delivery persons", e);
         }
     }
 }

@@ -2,6 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<%-- 
+  Order History View - Shows all orders placed by the current user
+  Displays order status, date, items, and total amount
+--%>
 <jsp:include page="../common/header.jsp">
     <jsp:param name="title" value="My Orders" />
 </jsp:include>

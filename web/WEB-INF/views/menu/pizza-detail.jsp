@@ -3,6 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<%-- 
+  Pizza Detail View - Shows detailed information about a specific pizza
+  Allows users to customize and add pizza to cart
+--%>
 <jsp:include page="../common/header.jsp">
     <jsp:param name="title" value="${pizza.name}" />
 </jsp:include>

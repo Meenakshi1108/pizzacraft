@@ -96,26 +96,18 @@ public class OrderService {
                         if (deliveryPerson != null) {
                             order.setDeliveryPersonName(deliveryPerson.getFullName());
                         } else {
-                            // Set a default name if deliveryPerson is null
                             order.setDeliveryPersonName("Unknown Delivery Person");
-                            System.err.println("Delivery person not found for ID: " + order.getDeliveryPersonId());
                         }
                     } catch (SQLException ex) {
-                        // Handle exception and set a default name
                         order.setDeliveryPersonName("Delivery Person");
-                        System.err.println("Error retrieving delivery person for order #" + 
-                                          order.getId() + ": " + ex.getMessage());
-                        ex.printStackTrace();
                     }
                 } else {
-                    // Ensure not null for JSP display
                     order.setDeliveryPersonName(null);
                 }
             }
             
             return order;
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new ServiceException("Error getting order by ID", e);
         }
     }
@@ -126,64 +118,38 @@ public class OrderService {
      * @throws ServiceException If a service error occurs
      */    public List<Order> getAllOrders() throws ServiceException {
         try {
-            System.out.println("DEBUG: Calling orderDAO.findAll()");
             List<Order> orders = orderDAO.findAll();
-            System.out.println("DEBUG: Found " + orders.size() + " orders");
             
             // Loop through orders to add delivery person names
             for (Order order : orders) {
-                try {
-                    System.out.println("DEBUG: Processing order ID: " + order.getId());
-                    
-                    if (order == null) {
-                        System.err.println("WARNING: Null order in orders list");
-                        continue;
-                    }
-                    
-                    // Check for null delivery person ID
-                    Integer deliveryPersonId = order.getDeliveryPersonId();
-                    System.out.println("DEBUG: Order " + order.getId() + " delivery person ID: " + 
-                                       (deliveryPersonId != null ? deliveryPersonId : "null"));
-                    
-                    if (deliveryPersonId != null) {
-                        try {
-                            User deliveryPerson = userDAO.findById(deliveryPersonId);
-                            if (deliveryPerson != null) {
-                                String fullName = deliveryPerson.getFullName();
-                                System.out.println("DEBUG: Found delivery person: " + fullName);
-                                order.setDeliveryPersonName(fullName);
-                            } else {
-                                // Set a default name if deliveryPerson is null
-                                System.err.println("WARNING: Delivery person not found for ID: " + deliveryPersonId);
-                                order.setDeliveryPersonName("Unknown Delivery Person");
-                            }
-                        } catch (SQLException ex) {
-                            // Handle exception and set a default name
-                            System.err.println("ERROR: Exception retrieving delivery person for order #" + 
-                                              order.getId() + ": " + ex.getMessage());
-                            ex.printStackTrace();
-                            order.setDeliveryPersonName("Delivery Person");
+                // Skip null order records (shouldn't happen, but just in case)
+                if (order == null) {
+                    continue;
+                }
+                
+                Integer deliveryPersonId = order.getDeliveryPersonId();
+                if (deliveryPersonId != null) {
+                    try {
+                        User deliveryPerson = userDAO.findById(deliveryPersonId);
+                        if (deliveryPerson != null) {
+                            order.setDeliveryPersonName(deliveryPerson.getFullName());
+                        } else {
+                            order.setDeliveryPersonName("Unknown Delivery Person");
                         }
-                    } else {
-                        // Ensure not null for JSP display
-                        System.out.println("DEBUG: No delivery person assigned to order " + order.getId());
-                        order.setDeliveryPersonName(null);
+                    } catch (SQLException ex) {
+                        order.setDeliveryPersonName("Delivery Person");
                     }
-                } catch (Exception ex) {
-                    System.err.println("ERROR: Unexpected exception processing order: " + ex.getMessage());
-                    ex.printStackTrace();
+                } else {
+                    // Ensure not null for JSP display
+                    order.setDeliveryPersonName(null);
                 }
             }
             
             return orders;
         } catch (SQLException e) {
-            System.err.println("ERROR: Failed to get all orders: " + e.getMessage());
-            e.printStackTrace();
-            throw new ServiceException("Error getting all orders: " + e.getMessage(), e);
+            throw new ServiceException("Error getting all orders", e);
         } catch (Exception e) {
-            System.err.println("ERROR: Unexpected exception in getAllOrders: " + e.getMessage());
-            e.printStackTrace();
-            throw new ServiceException("Unexpected error getting all orders: " + e.getMessage(), e);
+            throw new ServiceException("Unexpected error getting all orders", e);
         }
     }
       /**
@@ -204,26 +170,18 @@ public class OrderService {
                         if (deliveryPerson != null) {
                             order.setDeliveryPersonName(deliveryPerson.getFullName());
                         } else {
-                            // Set a default name if deliveryPerson is null
                             order.setDeliveryPersonName("Unknown Delivery Person");
-                            System.err.println("Delivery person not found for ID: " + order.getDeliveryPersonId());
                         }
                     } catch (SQLException ex) {
-                        // Handle exception and set a default name
                         order.setDeliveryPersonName("Delivery Person");
-                        System.err.println("Error retrieving delivery person for order #" + 
-                                           order.getId() + ": " + ex.getMessage());
-                        ex.printStackTrace();
                     }
                 } else {
-                    // Ensure not null for JSP display
                     order.setDeliveryPersonName(null);
                 }
             }
             
             return orders;
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new ServiceException("Error getting orders for user", e);
         }
     }

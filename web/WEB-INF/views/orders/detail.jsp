@@ -3,6 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
+<%-- 
+  Order Details View - Shows detailed information about a specific order
+  Includes order items, delivery details, pricing, and order status
+--%>
 <jsp:include page="../common/header.jsp">
     <jsp:param name="title" value="Order Details #${order.id}" />
 </jsp:include>

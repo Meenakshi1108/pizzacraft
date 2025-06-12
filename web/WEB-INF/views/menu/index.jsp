@@ -2,6 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
+<%-- 
+  Pizza Menu View - Displays all pizzas or filtered pizzas by category/type
+  Supports filtering by vegetarian and by pizza category
+--%>
 <jsp:include page="../common/header.jsp">
     <jsp:param name="title" value="${not empty selectedCategory ? selectedCategory.name : not empty filterTitle ? filterTitle : 'Menu'}" />
 </jsp:include>

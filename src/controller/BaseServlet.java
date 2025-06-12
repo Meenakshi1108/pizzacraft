@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-// import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -85,14 +84,12 @@ public abstract class BaseServlet extends HttpServlet {
      */    protected boolean requireRole(HttpServletRequest req, HttpServletResponse resp, String role) throws IOException {
         User user = getLoggedInUser(req);
         if (user == null) {
-            System.err.println("DEBUG: No logged in user when requiring role: " + role);
             setFlashMessage(req, "error", "You must be logged in to access this page.");
             resp.sendRedirect(req.getContextPath() + "/login");
             return false;
         }
         
         String userRole = user.getRole();
-        System.out.println("DEBUG: Checking role: User has " + userRole + ", required " + role);
         
         // Handle multiple possible valid roles - e.g., both DELIVERY and DELIVERY_PERSON
         if (role.equals(User.ROLE_ADMIN) && userRole.equals(User.ROLE_ADMIN)) {
