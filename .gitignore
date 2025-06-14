@@ -12,6 +12,7 @@ database/
 server/
 WebContent/WEB-INF/classes/
 
+DOCUMENTATION.md
 # IDE specific files
 .idea/
 *.iml
@@ -29,6 +30,7 @@ nb-configuration.xml
 # Log files
 *.log
 logs/
+/*.md
 
 # Package files
 *.jar
