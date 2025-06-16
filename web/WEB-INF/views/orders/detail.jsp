@@ -10,8 +10,13 @@
 <jsp:include page="../common/header.jsp">
     <jsp:param name="title" value="Order Details #${order.id}" />
 </jsp:include>
+<script>
+    // Add order page class to body for specific CSS targeting
+    document.body.classList.add('order-page');
+    document.body.classList.add('view-order-page');
+</script>
 
-<div class="container py-4">
+<div class="container py-4 order-details-content">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/">Home</a></li>
@@ -334,4 +339,3 @@
 }
 </style>
 
-<jsp:include page="../common/footer.jsp" />

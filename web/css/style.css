@@ -65,7 +65,7 @@ footer {
   padding: 2rem 0;
   width: 100%;
   z-index: 10;
-}
+  position: relative;
 
 /* Container padding */
 .container {
@@ -84,6 +84,7 @@ footer {
     padding: 2rem 0;
     width: 100%;
     z-index: 10;
+    position: relative; 
 }
 
 /* Cards with hover effects */

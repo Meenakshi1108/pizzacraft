@@ -2,7 +2,7 @@
 
 /* Hero Section */
 .hero-section {
-    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/margarita-pizza.jpg'); /* Updated to match your working image */
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/margarita-pizza.jpg'); /* Using verified image from images folder */
     background-size: cover;
     background-position: center;
     height: 500px;
@@ -13,6 +13,7 @@
     color: white;
     margin-bottom: 2rem;
     overflow: hidden;
+    width: 100%; /* Ensure full width */
 }
 
 .hero-overlay {
@@ -27,10 +28,12 @@
 
 .hero-content {
     position: relative;
-    z-index: 2; /* Increased to be above overlay */
+    z-index: 2; /* Ensures content is above overlay */
     padding: 2rem;
     max-width: 800px;
     text-align: center; /* Ensure centered text */
+    width: 100%; /* Full width within container */
+    margin: 0 auto; /* Center horizontally */
 }
 
 .hero-title {

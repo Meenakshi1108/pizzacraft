@@ -34,8 +34,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Add this to make the footer stay at the bottom -->
     <style>
         html, body {
             height: 100%;
@@ -45,6 +43,11 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+        }
+        
+        /* Order pages need special handling */
+        body.order-page {
+            padding-bottom: 30px;
         }
         
         .container:not(.footer .container) {

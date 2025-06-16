@@ -1,0 +1,29 @@
+/* Hero fixes to ensure image loads correctly and text is centered */
+
+/* Force background image visibility */
+.hero-section {
+    background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../images/margarita-pizza.jpg') !important;
+    background-repeat: no-repeat !important;
+}
+
+/* Ensure all hero text is centered */
+.hero-content * {
+    text-align: center;
+}
+
+/* Add animation to button */
+.pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

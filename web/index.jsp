@@ -10,7 +10,7 @@
 <!-- Hero Section -->
 <section class="hero-section">
     <div class="hero-overlay"></div>
-    <div class="container">
+    <div class="container d-flex align-items-center justify-content-center h-100">
         <div class="hero-content text-center">
             <h1 class="hero-title display-4 fw-bold text-white mb-3">Authentic Indian Flavors,<br>Handcrafted Pizzas</h1>
             <p class="hero-subtitle lead text-white mb-4">Experience the perfect blend of traditional Italian bases with rich Indian spices</p>
