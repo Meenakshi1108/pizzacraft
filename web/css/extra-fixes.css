@@ -1,19 +1,8 @@
 /* Additional CSS fixes for Pizza Delivery System */
 
-/* Pizza detail image container */
-.pizza-detail-image-container {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
+/* Pizza detail styles consolidated in pizza-detail.css */
 
-/* Fix for cart item images */
-.cart-item-image {
-    width: 70px;
-    height: 70px;
-    object-fit: cover;
-}
+/* Cart image styles consolidated in cart-fixes.css */
 
 /* Price badge styling */
 .price-badge {

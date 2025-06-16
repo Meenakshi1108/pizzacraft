@@ -18,24 +18,30 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet"><!-- Add these lines for faster resource loading -->
     <link rel="dns-prefetch" href="//cdn.jsdelivr.net">
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>    <!-- Custom CSS -->
-    <!-- Base styles first -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>    <!-- Custom CSS -->    <!-- Base styles first -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-    <!-- Then specialized styles -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/hero.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pizza-detail.css">    <!-- Then overrides/fixes -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive-fixes.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/extra-fixes.css">    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/performance-optimizations.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart-fixes.css">
+    
+    <!-- Layout and structure -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/layout-fixes.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive-fixes.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
+    
+    <!-- Component styles -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/hero.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/hero-fixes.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/pizza-detail.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart-fixes.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/order-details-fixes.css">
+    
+    <!-- Enhancement styles -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/extra-fixes.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/performance-optimizations.css">
 </head>
 <body>
     <div class="content-wrapper">
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
-        <div class="container">            <a class="navbar-brand" href="${pageContext.request.contextPath}/">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container"><a class="navbar-brand" href="${pageContext.request.contextPath}/">
                 <img src="${pageContext.request.contextPath}/images/logo.png" alt="PizzaCraft" height="50">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

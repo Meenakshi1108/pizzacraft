@@ -4,7 +4,8 @@
 }
 
 body.order-page footer,
-body.order-page .footer {
+body.order-page .footer,
+body.order-page .site-footer {
   position: relative !important;
   bottom: auto !important;
 }
@@ -12,6 +13,7 @@ body.order-page .footer {
 body.order-page .content-wrapper {
   flex: 1 0 auto;
   min-height: calc(100vh - 200px);
+}
 
 .view-order-page .container.py-4 {
   margin-bottom: 100px;

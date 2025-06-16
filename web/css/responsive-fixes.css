@@ -1,6 +1,6 @@
 /* Responsive fixes for Pizza Delivery System */
 
-/* Better image handling */
+/* Enhanced image handling */
 .card-img-top {
   height: 160px !important;
   object-fit: cover !important;
@@ -10,15 +10,6 @@
 
 .card:hover .card-img-top {
   transform: scale(1.05);
-}
-
-/* Details page image */
-.pizza-detail-img {
-  max-height: 350px;
-  object-fit: contain;
-  border-radius: 8px;
-  width: 100%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* Responsive container */
@@ -34,14 +25,7 @@ img.img-fluid {
   height: auto;
 }
 
-/* Cart item images */
-.cart-item-image {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+/* Cart image styles are in cart-fixes.css */
 
 /* Description truncation for menu items */
 .description-truncate {
@@ -102,28 +86,11 @@ img.img-fluid {
   margin-bottom: 2rem;
 }
 
-/* Fix empty space at bottom */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1;
-}
+/* Layout is now handled by layout-fixes.css */
 
 /* Better form layout */
 .form-group {
   margin-bottom: 1.5rem;
 }
 
-/* Fix cart display - override previous settings */
-.cart-item-image {
-  width: 70px;
-  height: 70px;
-  max-height: 70px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+/* Cart styles consolidated in cart-fixes.css */

@@ -1,8 +1,7 @@
 </div><!-- Closing the container div opened in header.jsp -->
     
     </div><!-- Closing the content-wrapper div -->
-    
-    <footer class="footer mt-auto py-3 bg-dark text-white">
+      <footer class="site-footer mt-auto py-3 bg-dark text-white">
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-3 mb-md-0">
@@ -33,32 +32,11 @@
                 </div>
             </div>
         </div>
-    </footer>
-    <style>
-        html, body {
-            height: 100%;
-        }
-        
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        
-        /* Order pages need special handling */
-        body.order-page {
-            padding-bottom: 30px;
-        }
-        
-        .container:not(.footer .container) {
-            flex: 1 0 auto;
-        }
-        
-        .footer {
-            flex-shrink: 0;
-        }
-    </style>    <!-- Bootstrap JS Bundle with Popper -->
+    </footer>    <!-- Footer styles moved to layout-fixes.css -->    <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+    <!-- Footer CSS -->
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
 
     <!-- Custom JS -->
     <script src="${pageContext.request.contextPath}/js/script.js"></script>

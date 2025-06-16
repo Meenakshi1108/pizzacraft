@@ -2,12 +2,10 @@
  * Extra CSS fixes for layout issues
  */
 
-/* Fix footer taking up too much space */
-footer {
-  flex-shrink: 0;
-  padding: 1.5rem 0;
-  margin-top: auto;
-  position: relative; /* Ensure it's not fixed */
+/* Base body and HTML structure for proper footer placement */
+html, body {
+  height: 100%;
+  margin: 0;
 }
 
 body {
@@ -16,9 +14,32 @@ body {
   flex-direction: column;
 }
 
+/* Fix footer so it appears at the bottom but scrolls properly */
+.site-footer, footer {
+  flex-shrink: 0;
+  padding: 1.5rem 0;
+  margin-top: auto;
+  position: relative; /* Ensure it's not fixed */
+  width: 100%;
+  background-color: #222;
+  color: #fff;
+  z-index: 10;
+}
+
+/* Order pages need special handling */
+body.order-page {
+  padding-bottom: 30px;
+}
+
+/* Make content area push footer down */
 .content-wrapper {
   flex: 1 0 auto;
-  padding-bottom: 50px; /* Add padding to prevent footer overlap */
+  padding-bottom: 30px; /* Add padding to prevent footer overlap */
+}
+
+/* Fix container spacing */
+.container:not(.footer .container):not(.site-footer .container) {
+  flex: 1 0 auto;
 }
 
 /* Cart page specific fixes */

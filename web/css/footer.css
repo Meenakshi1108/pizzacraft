@@ -1,0 +1,94 @@
+/**
+ * Dedicated footer styling
+ */
+
+/* Footer styling */
+.site-footer, footer {
+  background-color: #222;
+  color: #fff;
+  padding: 1.5rem 0;
+  position: relative;
+  width: 100%;
+}
+
+/* Footer link styling */
+.site-footer a, footer a {
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.site-footer a:hover, footer a:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Footer headings */
+.site-footer h5, footer h5 {
+  color: #fff;
+  font-weight: 600;
+  margin-bottom: 1.2rem;
+  position: relative;
+  display: inline-block;
+}
+
+.site-footer h5::after, footer h5::after {
+  content: "";
+  position: absolute;
+  width: 50%;
+  height: 2px;
+  background-color: var(--primary-color);
+  bottom: -8px;
+  left: 0;
+}
+
+/* Footer list items */
+.site-footer ul li, footer ul li {
+  margin-bottom: 0.5rem;
+}
+
+/* Copyright section */
+.site-footer hr, footer hr {
+  border-color: rgba(255,255,255,0.1);
+}
+
+/* Footer icons */
+.site-footer i, footer i {
+  width: 20px;
+  text-align: center;
+  margin-right: 5px;
+  color: var(--primary-color);
+}
+
+/* Social media icons */
+.social-icons {
+  margin-top: 1rem;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin-right: 0.5rem;
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255,255,255,0.1);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 36px;
+  transition: all 0.3s ease;
+}
+
+.social-icons a:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-3px);
+}
+
+/* Footer responsiveness */
+@media (max-width: 768px) {
+  .site-footer, footer {
+    text-align: center;
+  }
+  
+  .site-footer h5::after, footer h5::after {
+    left: 25%;
+    width: 50%;
+  }
+}
