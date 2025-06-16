@@ -4,7 +4,7 @@
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)](https://www.mysql.com)
 [![Tomcat](https://img.shields.io/badge/Tomcat-9.0-green)](https://tomcat.apache.org)
 
-A full-featured pizza ordering and delivery web application built with Java EE. PizzaCraft allows customers to browse pizzas, customize toppings, place orders, and track deliveries.
+A full-featured, responsive web application for pizza ordering and delivery, built with Java EE. PizzaCraft allows customers to browse pizzas, customize toppings, place orders, and track their deliveries.
 
 ## Application Screenshots
 
